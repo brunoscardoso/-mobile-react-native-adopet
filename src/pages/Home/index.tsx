@@ -1,4 +1,5 @@
 import React from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 import {
   Background,
@@ -14,10 +15,12 @@ import {
 import Heart from 'react-native-vector-icons/Entypo';
 import Dog from 'react-native-vector-icons/FontAwesome5';
 
-import background from '../assets/home-background.png';
-import logo from '../assets/logo.png';
+import background from '../../assets/home-background.png';
+import logo from '../../assets/logo.png';
 
 const Home = () => {
+  const navigation = useNavigation();
+
   return (
     <Background
       source={background}
@@ -26,11 +29,11 @@ const Home = () => {
         <Logo source={logo} />
         <Title>Quer adotar ou cadastrar um Pet?</Title>
         <Description>Nós ajudamos a dar um lar para os caramelos!</Description>
-        <AdoptButton>
+        <AdoptButton onPress={() => navigation.navigate('AdoptPet')}>
           <Heart name="heart" size={22} color="#fff" />
           <TextButton>Adotar</TextButton>
         </AdoptButton>
-        <RegisterButton>
+        <RegisterButton onPress={() => navigation.navigate('RegisterPet')}>
           <Dog name="dog" size={22} color="#fff" />
           <TextButton>Cadastrar</TextButton>
         </RegisterButton>
