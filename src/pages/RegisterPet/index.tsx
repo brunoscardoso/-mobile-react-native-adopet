@@ -1,17 +1,18 @@
 import React from 'react';
-import {Container} from './styles';
+import {Container, Card, Title, Label} from './styles';
 
 import Header from '../../components/Header';
-import CardContainer from '../../components/CardContainer';
 import Input from '../../components/Input';
 
 const RegisterPet = () => {
   return (
     <Container>
       <Header />
-      <CardContainer>
+      <Card>
+        <Title>Cadastro do Pet</Title>
+        <Label>Nome (psiu, batisa ele ai)</Label>
         <Input />
-      </CardContainer>
+      </Card>
     </Container>
   );
 };
