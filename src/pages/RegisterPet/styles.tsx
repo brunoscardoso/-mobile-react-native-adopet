@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import RNPickerSelect from 'react-native-picker-select';
 
 export const Container = styled.SafeAreaView``;
 
@@ -20,4 +21,10 @@ export const Label = styled.Text`
   color: #6c6c80;
   font-size: 16px;
   margin-bottom: 8px;
+`;
+
+export const Dropdown = styled(RNPickerSelect)`
+  height: 100%;
+  width: 100%;
+  background: #6c6c80;
 `;
