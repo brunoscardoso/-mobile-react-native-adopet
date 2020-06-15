@@ -20,6 +20,10 @@
     <string>Octicons.ttf</string>
     <string>Zocial.ttf</string>
   </array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Precisamos de permissão para acessar sua biblioteca de imagens</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Precisamos de permissão para acessar sua camera</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
