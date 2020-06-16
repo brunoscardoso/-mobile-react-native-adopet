@@ -46,3 +46,31 @@ export const DropDownStyled = styled.View`
 export const Dropdown = styled(RNPickerSelect)`
   background: #6c6c80;
 `;
+
+export const PhotoButton = styled.TouchableOpacity``;
+
+export const Photo = styled.Image`
+  width: 100%;
+  height: 185px;
+  border-radius: 8px;
+  margin-top: 10px;
+`;
+
+export const RegisterButton = styled.TouchableOpacity`
+  background: #34cb79;
+  height: 50px;
+  flex-direction: row;
+  border-radius: 10px;
+  align-items: center;
+  padding-left: 15px;
+  margin-top: 10px;
+`;
+
+export const TextButton = styled.Text`
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  padding-left: 10px;
+  font-size: 17px;
+`;

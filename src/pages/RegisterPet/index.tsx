@@ -1,19 +1,28 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, FormEvent} from 'react';
 import axios from 'axios';
+import ImagePicker from 'react-native-image-crop-picker';
 
 import {
   Container,
   Card,
+  PhotoButton,
+  Photo,
   Title,
   Label,
   GroupContainer,
   DropDownContainer,
   DropDownStyled,
   Dropdown,
+  RegisterButton,
+  TextButton,
 } from './styles';
+
+import uploadPreview from '../../assets/upload-image.png';
 
 import Header from '../../components/Header';
 import Input from '../../components/Input';
+
+import api from '../../services/api';
 
 interface petObject {
   name: string;
@@ -35,8 +44,16 @@ const RegisterPet = () => {
   const [gender, setGender] = useState('');
 
   const [ufs, setUfs] = useState<string[]>([]);
-
   const [cities, setCities] = useState<string[]>([]);
+
+  const [selectedPosition, setSelectedPosition] = useState<[number, number]>([
+    0,
+    0,
+  ]);
+
+  const [uri, setUri] = useState();
+  const [filename, setFilename] = useState<File>();
+  const [type, setType] = useState();
 
   const [selectedUf, setSelectedUf] = useState('0');
   const [selectedCity, setSelectedCity] = useState('0');
@@ -50,6 +67,7 @@ const RegisterPet = () => {
         const ufInitials = response.data.map((uf) => uf.sigla);
         setUfs(ufInitials);
       });
+    setSelectedPosition([23.23232323, 49.923293293]);
   }, []);
 
   useEffect(() => {
@@ -98,13 +116,48 @@ const RegisterPet = () => {
     setSelectedCity(value);
   }
 
+  async function handleSubmit() {
+    const uf = selectedUf;
+    const city = selectedCity;
+    const [latitude, longitude] = selectedPosition;
+
+    const data = new FormData();
+
+    data.append('name', name);
+    data.append('size', size);
+    data.append('gender', gender);
+    data.append('uf', uf);
+    data.append('city', city);
+    data.append('latitude', String(latitude));
+    data.append('longitude', String(longitude));
+
+    data.append('photo', filename);
+
+    await api.post('pets', data);
+  }
+
+  function handleChangePhoto() {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then((image) => {
+      setUri(image.path);
+      setFilename(image.filename);
+      setType(image.mime);
+    });
+  }
+
   return (
     <Container>
       <Header />
       <Card>
         <Title>Cadastro do Pet</Title>
+        <PhotoButton onPress={handleChangePhoto}>
+          <Photo source={uploadPreview} />
+        </PhotoButton>
         <Label>Nome (psiu, batisa ele ai)</Label>
-        <Input />
+        <Input onValueChange={(value) => handleName(value)} />
         <GroupContainer>
           <DropDownContainer>
             <Label>Porte</Label>
@@ -156,6 +209,9 @@ const RegisterPet = () => {
             </DropDownStyled>
           </DropDownContainer>
         </GroupContainer>
+        <RegisterButton onPress={handleSubmit}>
+          <TextButton>Cadastrar</TextButton>
+        </RegisterButton>
       </Card>
     </Container>
   );
