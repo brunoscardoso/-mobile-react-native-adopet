@@ -10,7 +10,8 @@ import {
   Title,
   Label,
   GroupContainer,
-  DropDownContainer,
+  DropDownContainerLeft,
+  DropDownContainerRight,
   DropDownStyled,
   Dropdown,
   RegisterButton,
@@ -52,7 +53,7 @@ const RegisterPet = () => {
   ]);
 
   const [uri, setUri] = useState();
-  const [filename, setFilename] = useState<File>();
+  const [filename, setFilename] = useState();
   const [type, setType] = useState();
 
   const [selectedUf, setSelectedUf] = useState('0');
@@ -133,6 +134,12 @@ const RegisterPet = () => {
 
     data.append('photo', filename);
 
+    data.append('photo', {
+      uri: uri,
+      type: type,
+      name: 'testPhotoName'
+    });
+
     await api.post('pets', data);
   }
 
@@ -141,16 +148,17 @@ const RegisterPet = () => {
       width: 300,
       height: 400,
       cropping: true,
-    }).then((image) => {
-      setUri(image.path);
-      setFilename(image.filename);
-      setType(image.mime);
+    }).then(({path, filename, mime}) => {
+      setUri(path);
+      setFilename(filename);
+      setType(mime);
     });
   }
 
   return (
-    <Container>
+    <>
       <Header />
+    <Container>
       <Card>
         <Title>Cadastro do Pet</Title>
         <PhotoButton onPress={handleChangePhoto}>
@@ -159,7 +167,7 @@ const RegisterPet = () => {
         <Label>Nome (psiu, batisa ele ai)</Label>
         <Input onValueChange={(value) => handleName(value)} />
         <GroupContainer>
-          <DropDownContainer>
+          <DropDownContainerLeft>
             <Label>Porte</Label>
             <DropDownStyled>
               <Dropdown
@@ -167,9 +175,9 @@ const RegisterPet = () => {
                 items={sizes}
               />
             </DropDownStyled>
-          </DropDownContainer>
+          </DropDownContainerLeft>
 
-          <DropDownContainer>
+          <DropDownContainerRight>
             <Label>Sexo</Label>
             <DropDownStyled>
               <Dropdown
@@ -177,11 +185,11 @@ const RegisterPet = () => {
                 items={genders}
               />
             </DropDownStyled>
-          </DropDownContainer>
+          </DropDownContainerRight>
         </GroupContainer>
 
         <GroupContainer>
-          <DropDownContainer>
+          <DropDownContainerLeft>
             <Label>Estado</Label>
             <DropDownStyled>
               <Dropdown
@@ -193,9 +201,9 @@ const RegisterPet = () => {
                 }))}
               />
             </DropDownStyled>
-          </DropDownContainer>
+          </DropDownContainerLeft>
 
-          <DropDownContainer>
+          <DropDownContainerRight>
             <Label>Cidade</Label>
             <DropDownStyled>
               <Dropdown
@@ -207,13 +215,14 @@ const RegisterPet = () => {
                 }))}
               />
             </DropDownStyled>
-          </DropDownContainer>
+          </DropDownContainerRight>
         </GroupContainer>
         <RegisterButton onPress={handleSubmit}>
           <TextButton>Cadastrar</TextButton>
         </RegisterButton>
       </Card>
     </Container>
+    </>
   );
 };
 

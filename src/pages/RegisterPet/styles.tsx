@@ -1,7 +1,8 @@
 import styled from 'styled-components/native';
 import RNPickerSelect from 'react-native-picker-select';
 
-export const Container = styled.SafeAreaView``;
+export const Container = styled.SafeAreaView`
+`;
 
 export const Card = styled.View`
   margin: 24px 8px 10px 8px;
@@ -26,16 +27,20 @@ export const Label = styled.Text`
 export const GroupContainer = styled.View`
   margin: 10px 0 0 0;
   flex-direction: row;
-  justify-content: space-between;
 `;
 
-export const DropDownContainer = styled.View`
+export const DropDownContainerLeft = styled.View`
   justify-content: center;
+  padding-right: 10px;
+  width: 50%;
+`;
+
+export const DropDownContainerRight = styled.View`
+  justify-content: center;
+  width: 50%;
 `;
 
 export const DropDownStyled = styled.View`
-  padding: 0 15px;
-  width: 180px;
   height: 40px;
   background: #f0f0f5;
   border-radius: 4px;

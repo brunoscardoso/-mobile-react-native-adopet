@@ -9,7 +9,7 @@ export const Logo = styled.Image`
   margin-top: 350px;
 `;
 
-export const Main = styled.View`
+export const Main = styled.SafeAreaView`
   flex: 1;
   justify-content: center;
 `;
