@@ -25,10 +25,10 @@ import Input from '../../components/Input';
 
 import api from '../../services/api';
 
-interface petObject {
-  name: string;
-  size: string;
-  gender: string;
+interface FilePhoto {
+  path: string;
+  filename: string;
+  mime: string;
 }
 
 interface IBGEUFResponse {
@@ -52,9 +52,9 @@ const RegisterPet = () => {
     0,
   ]);
 
-  const [uri, setUri] = useState();
-  const [filename, setFilename] = useState();
-  const [type, setType] = useState();
+  const [path, setPath] = useState<FilePhoto>();
+  const [filename, setFilename] = useState<FilePhoto>();
+  const [type, setType] = useState<FilePhoto>();
 
   const [selectedUf, setSelectedUf] = useState('0');
   const [selectedCity, setSelectedCity] = useState('0');
@@ -132,12 +132,10 @@ const RegisterPet = () => {
     data.append('latitude', String(latitude));
     data.append('longitude', String(longitude));
 
-    data.append('photo', filename);
-
     data.append('photo', {
-      uri: uri,
-      type: type,
-      name: 'testPhotoName'
+      uri: path,
+      type,
+      name: filename,
     });
 
     await api.post('pets', data);
@@ -149,8 +147,8 @@ const RegisterPet = () => {
       height: 400,
       cropping: true,
     }).then(({path, filename, mime}) => {
-      setUri(path);
       setFilename(filename);
+      setPath(path);
       setType(mime);
     });
   }
@@ -158,70 +156,73 @@ const RegisterPet = () => {
   return (
     <>
       <Header />
-    <Container>
-      <Card>
-        <Title>Cadastro do Pet</Title>
-        <PhotoButton onPress={handleChangePhoto}>
-          <Photo source={uploadPreview} />
-        </PhotoButton>
-        <Label>Nome (psiu, batisa ele ai)</Label>
-        <Input onValueChange={(value) => handleName(value)} />
-        <GroupContainer>
-          <DropDownContainerLeft>
-            <Label>Porte</Label>
-            <DropDownStyled>
-              <Dropdown
-                onValueChange={(value) => handleSizeDropdown(value)}
-                items={sizes}
-              />
-            </DropDownStyled>
-          </DropDownContainerLeft>
+      <Container>
+        <Card>
+          <Title>Cadastro do Pet</Title>
+          <PhotoButton onPress={handleChangePhoto}>
+            <Photo source={path ? {uri: path} : uploadPreview} />
+          </PhotoButton>
+          <Label>Nome (psiu, batisa ele ai)</Label>
+          <Input
+            onChangeText={(value: string) => handleName(value)}
+            value={name}
+          />
+          <GroupContainer>
+            <DropDownContainerLeft>
+              <Label>Porte</Label>
+              <DropDownStyled>
+                <Dropdown
+                  onValueChange={(value) => handleSizeDropdown(value)}
+                  items={sizes}
+                />
+              </DropDownStyled>
+            </DropDownContainerLeft>
 
-          <DropDownContainerRight>
-            <Label>Sexo</Label>
-            <DropDownStyled>
-              <Dropdown
-                onValueChange={(value) => handleGenderDropdown(value)}
-                items={genders}
-              />
-            </DropDownStyled>
-          </DropDownContainerRight>
-        </GroupContainer>
+            <DropDownContainerRight>
+              <Label>Sexo</Label>
+              <DropDownStyled>
+                <Dropdown
+                  onValueChange={(value) => handleGenderDropdown(value)}
+                  items={genders}
+                />
+              </DropDownStyled>
+            </DropDownContainerRight>
+          </GroupContainer>
 
-        <GroupContainer>
-          <DropDownContainerLeft>
-            <Label>Estado</Label>
-            <DropDownStyled>
-              <Dropdown
-                onValueChange={(value) => handleUfsDropdown(value)}
-                items={ufs.map((sigla) => ({
-                  key: sigla,
-                  label: sigla,
-                  value: sigla,
-                }))}
-              />
-            </DropDownStyled>
-          </DropDownContainerLeft>
+          <GroupContainer>
+            <DropDownContainerLeft>
+              <Label>Estado</Label>
+              <DropDownStyled>
+                <Dropdown
+                  onValueChange={(value) => handleUfsDropdown(value)}
+                  items={ufs.map((sigla) => ({
+                    key: sigla,
+                    label: sigla,
+                    value: sigla,
+                  }))}
+                />
+              </DropDownStyled>
+            </DropDownContainerLeft>
 
-          <DropDownContainerRight>
-            <Label>Cidade</Label>
-            <DropDownStyled>
-              <Dropdown
-                onValueChange={(value) => handleCitiesDropdown(value)}
-                items={cities.map((city) => ({
-                  key: city,
-                  label: city,
-                  value: city,
-                }))}
-              />
-            </DropDownStyled>
-          </DropDownContainerRight>
-        </GroupContainer>
-        <RegisterButton onPress={handleSubmit}>
-          <TextButton>Cadastrar</TextButton>
-        </RegisterButton>
-      </Card>
-    </Container>
+            <DropDownContainerRight>
+              <Label>Cidade</Label>
+              <DropDownStyled>
+                <Dropdown
+                  onValueChange={(value) => handleCitiesDropdown(value)}
+                  items={cities.map((city) => ({
+                    key: city,
+                    label: city,
+                    value: city,
+                  }))}
+                />
+              </DropDownStyled>
+            </DropDownContainerRight>
+          </GroupContainer>
+          <RegisterButton onPress={handleSubmit}>
+            <TextButton>Cadastrar</TextButton>
+          </RegisterButton>
+        </Card>
+      </Container>
     </>
   );
 };
