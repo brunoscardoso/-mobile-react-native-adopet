@@ -1,14 +1,23 @@
 import styled from 'styled-components/native';
 import RNPickerSelect from 'react-native-picker-select';
+import {Platform} from 'react-native';
 
-export const Container = styled.SafeAreaView`
-`;
+export const Container = styled.SafeAreaView``;
 
-export const Card = styled.View`
+export const Card = styled.KeyboardAvoidingView.attrs({
+  enabled: Platform.OS === 'ios',
+  behavior: 'padding',
+})`
   margin: 24px 8px 10px 8px;
   background: #fff;
   border-radius: 8px;
   padding: 16px 16px 16px 16px;
+`;
+
+export const Scroll = styled.ScrollView.attrs({
+  showVerticalScrollIndicator: false,
+})`
+  align-self: stretch;
 `;
 
 export const Title = styled.Text`
@@ -44,6 +53,7 @@ export const DropDownStyled = styled.View`
   height: 40px;
   background: #f0f0f5;
   border-radius: 4px;
+  padding: 10px;
   align-items: center;
   justify-content: center;
 `;

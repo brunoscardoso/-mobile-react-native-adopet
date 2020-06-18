@@ -1,9 +1,10 @@
-import React, {useState, useEffect, FormEvent} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-crop-picker';
 
 import {
   Container,
+  Scroll,
   Card,
   PhotoButton,
   Photo,
@@ -156,73 +157,91 @@ const RegisterPet = () => {
   return (
     <>
       <Header />
-      <Container>
-        <Card>
-          <Title>Cadastro do Pet</Title>
-          <PhotoButton onPress={handleChangePhoto}>
-            <Photo source={path ? {uri: path} : uploadPreview} />
-          </PhotoButton>
-          <Label>Nome (psiu, batisa ele ai)</Label>
-          <Input
-            onChangeText={(value: string) => handleName(value)}
-            value={name}
-          />
-          <GroupContainer>
-            <DropDownContainerLeft>
-              <Label>Porte</Label>
-              <DropDownStyled>
-                <Dropdown
-                  onValueChange={(value) => handleSizeDropdown(value)}
-                  items={sizes}
-                />
-              </DropDownStyled>
-            </DropDownContainerLeft>
+      <Scroll>
+        <Container>
+          <Card>
+            <Title>Cadastro do Pet</Title>
+            <PhotoButton onPress={handleChangePhoto}>
+              <Photo source={path ? {uri: path} : uploadPreview} />
+            </PhotoButton>
+            <Label>Nome (psiu, batisa ele ai)</Label>
+            <Input
+              onChangeText={(value: string) => handleName(value)}
+              value={name}
+            />
+            <GroupContainer>
+              <DropDownContainerLeft>
+                <Label>Porte</Label>
+                <DropDownStyled>
+                  <Dropdown
+                    placeholder={{
+                      label: 'Selecione o tamanho',
+                      value: null,
+                    }}
+                    onValueChange={(value) => handleSizeDropdown(value)}
+                    items={sizes}
+                  />
+                </DropDownStyled>
+              </DropDownContainerLeft>
 
-            <DropDownContainerRight>
-              <Label>Sexo</Label>
-              <DropDownStyled>
-                <Dropdown
-                  onValueChange={(value) => handleGenderDropdown(value)}
-                  items={genders}
-                />
-              </DropDownStyled>
-            </DropDownContainerRight>
-          </GroupContainer>
+              <DropDownContainerRight>
+                <Label>Sexo</Label>
+                <DropDownStyled>
+                  <Dropdown
+                    placeholder={{
+                      label: 'Selecione o sexo',
+                      value: null,
+                    }}
+                    onValueChange={(value) => handleGenderDropdown(value)}
+                    items={genders}
+                  />
+                </DropDownStyled>
+              </DropDownContainerRight>
+            </GroupContainer>
 
-          <GroupContainer>
-            <DropDownContainerLeft>
-              <Label>Estado</Label>
-              <DropDownStyled>
-                <Dropdown
-                  onValueChange={(value) => handleUfsDropdown(value)}
-                  items={ufs.map((sigla) => ({
-                    key: sigla,
-                    label: sigla,
-                    value: sigla,
-                  }))}
-                />
-              </DropDownStyled>
-            </DropDownContainerLeft>
+            <GroupContainer>
+              <DropDownContainerLeft>
+                <Label>Estado</Label>
+                <DropDownStyled>
+                  <Dropdown
+                    placeholder={{
+                      label: 'Selecione o UF',
+                      value: null,
+                    }}
+                    onValueChange={(value) => handleUfsDropdown(value)}
+                    items={ufs.map((sigla) => ({
+                      key: sigla,
+                      label: sigla,
+                      value: sigla,
+                    }))}
+                  />
+                </DropDownStyled>
+              </DropDownContainerLeft>
 
-            <DropDownContainerRight>
-              <Label>Cidade</Label>
-              <DropDownStyled>
-                <Dropdown
-                  onValueChange={(value) => handleCitiesDropdown(value)}
-                  items={cities.map((city) => ({
-                    key: city,
-                    label: city,
-                    value: city,
-                  }))}
-                />
-              </DropDownStyled>
-            </DropDownContainerRight>
-          </GroupContainer>
-          <RegisterButton onPress={handleSubmit}>
-            <TextButton>Cadastrar</TextButton>
-          </RegisterButton>
-        </Card>
-      </Container>
+              <DropDownContainerRight>
+                <Label>Cidade</Label>
+                <DropDownStyled>
+                  <Dropdown
+                    placeholder={{
+                      label: 'Selecione a cidade',
+                      value: null,
+                    }}
+                    onValueChange={(value) => handleCitiesDropdown(value)}
+                    items={cities.map((city) => ({
+                      key: city,
+                      label: city,
+                      value: city,
+                    }))}
+                  />
+                </DropDownStyled>
+              </DropDownContainerRight>
+            </GroupContainer>
+            <RegisterButton onPress={handleSubmit}>
+              <TextButton>Cadastrar</TextButton>
+            </RegisterButton>
+          </Card>
+        </Container>
+      </Scroll>
     </>
   );
 };
