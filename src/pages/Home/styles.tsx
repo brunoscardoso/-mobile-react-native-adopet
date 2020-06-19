@@ -7,7 +7,7 @@ export const Background = styled.ImageBackground`
 
 export const Logo = styled.Image`
   margin-top: 350px;
-`;
+`
 
 export const Main = styled.SafeAreaView`
   flex: 1;
