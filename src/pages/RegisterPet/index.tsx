@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-crop-picker';
 import MapView from 'react-native-maps';
@@ -41,7 +41,7 @@ interface IBGECityResponse {
   nome: string;
 }
 
-const RegisterPet = () => {
+const RegisterPet: React.fc = () => {
   const [name, setName] = useState('');
   const [size, setSize] = useState('');
   const [gender, setGender] = useState('');
@@ -89,14 +89,14 @@ const RegisterPet = () => {
   }, [selectedUf]);
 
   const [genders] = useState([
-    {label: 'Macho', value: 'Macho'},
-    {label: 'Fêmea', value: 'Fêmea'},
+    { label: 'Macho', value: 'Macho' },
+    { label: 'Fêmea', value: 'Fêmea' },
   ]);
 
   const [sizes] = useState([
-    {label: 'Pequeno', value: 'Pequeno'},
-    {label: 'Médio', value: 'Médio'},
-    {label: 'Grande', value: 'Grande'},
+    { label: 'Pequeno', value: 'Pequeno' },
+    { label: 'Médio', value: 'Médio' },
+    { label: 'Grande', value: 'Grande' },
   ]);
 
   function handleName(value: string) {
@@ -148,7 +148,7 @@ const RegisterPet = () => {
       width: 300,
       height: 400,
       cropping: true,
-    }).then(({path, filename, mime}) => {
+    }).then(({ path, filename, mime }) => {
       setFilename(filename);
       setPath(path);
       setType(mime);
@@ -163,7 +163,7 @@ const RegisterPet = () => {
           <Card>
             <Title>Cadastro do Pet</Title>
             <PhotoButton onPress={handleChangePhoto}>
-              <Photo source={path ? {uri: path} : uploadPreview} />
+              <Photo source={path ? { uri: path } : uploadPreview} />
             </PhotoButton>
             <Label>Nome (psiu, batisa ele ai)</Label>
             <Input

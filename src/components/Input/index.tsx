@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {Container, TInput} from './styles';
+import { Container, TInput } from './styles';
 
-const Input = () => {
+const Input: React.FC = () => {
   return (
     <Container>
       <TInput />

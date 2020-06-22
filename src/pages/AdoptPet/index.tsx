@@ -2,9 +2,9 @@ import React from 'react';
 import MapView from 'react-native-maps';
 
 import Header from '../../components/Header';
-import {Container} from './styles';
+import { Container } from './styles';
 
-const AdoptPet = () => {
+const AdoptPet: React.FC = () => {
   return (
     <Container>
       <Header />
