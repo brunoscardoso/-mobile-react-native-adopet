@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-crop-picker';
+import MapView from 'react-native-maps';
 
 import {
   Container,
@@ -236,6 +237,16 @@ const RegisterPet = () => {
                 </DropDownStyled>
               </DropDownContainerRight>
             </GroupContainer>
+
+            <MapView
+              initialRegion={{
+                latitude: 37.78825,
+                longitude: -122.4324,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+            />
+
             <RegisterButton onPress={handleSubmit}>
               <TextButton>Cadastrar</TextButton>
             </RegisterButton>

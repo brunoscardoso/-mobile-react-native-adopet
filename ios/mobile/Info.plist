@@ -20,6 +20,8 @@
     <string>Octicons.ttf</string>
     <string>Zocial.ttf</string>
   </array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Precisamos de acesso a sua localização para cadastrarmos ou encontrarmos os pets</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Precisamos de permissão para acessar sua biblioteca de imagens</string>
 	<key>NSCameraUsageDescription</key>
